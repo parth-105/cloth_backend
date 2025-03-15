@@ -26,6 +26,11 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => console.log("MongoDB connected successfully"));
 
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is working!' });
+});
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
