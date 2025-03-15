@@ -19,9 +19,24 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findOne({ id: req.params.id });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   try {
-    console.log('back-put ')
+    
     const updatedProduct = await Product.findOneAndUpdate({id:req.params.id}, req.body, { new: true });
     res.json(updatedProduct);
   } catch (error) {
